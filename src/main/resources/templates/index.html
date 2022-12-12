@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>DeepL Plus</title>
+
+  <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: sans-serif;
+      }
+
+      h1 {
+          margin: 20px auto;
+          text-align: center;
+          font-family: Serif, sans-serif;
+      }
+
+      .footer {
+          position: fixed;
+          left: 0;
+          bottom: 10px;
+          width: 100%;
+          color: black;
+          text-align: center;
+      }
+
+      .bg {
+          background-color: grey;
+          text-align: center;
+          height: 500px;
+      }
+
+
+      .left-box {
+          border: 2px solid black;
+          width: 40%;
+          height: 90%;
+          display: inline-block;
+          background-color: pink;
+          text-align: center;
+      }
+
+      .right-box {
+          border: 2px solid black;
+          width: 40%;
+          height: 90%;
+          display: inline-block;
+          background-color: pink;
+          text-align: left;
+      }
+
+      .left-form {
+          width: 100%;
+          height: 100%;
+      }
+
+      textarea {
+          width: 100%;
+          height: 100%;
+          padding: 10px 10px;
+          font: 1 16px sans-serif;
+          background-color: greenyellow;
+          float: left;
+          resize: none;
+      }
+
+      .right-content {
+          width: 100%;
+          height: 100%;
+          padding: 10px 10px;
+          font: 1 16px sans-serif;
+          background-color: rosybrown;
+          display: inline-block;
+          float: left;
+          white-space: pre-line;
+      }
+
+      .header {
+          text-align: center;
+          margin: 5px 0;
+      }
+
+      .left-header {
+          display: inline-block;
+          width: 30%;
+          background-color: #ccc;
+      }
+
+      .center-header {
+          display: inline-block;
+          width: 10%;
+          background-color: #ccc;
+      }
+
+      .right-header {
+          display: inline-block;
+          width: 30%;
+          background-color: #ccc;
+      }
+
+      .submit-btn {
+          padding: 10px;
+          width: 100%;
+          float: left;
+      }
+
+
+  </style>
+</head>
+<body>
+<h1 class="center">DeepL Plugin</h1>
+
+<div class="header">
+  <div class="left-header">
+      <label><input type="radio" name="input-lang" value="en-US"
+                    onclick="setEn()"
+                    >English</label>
+      <label><input type="radio" name="input-lang" value="ZH" onclick="setZh()">Chinese</label>
+  </div>
+
+  <div class="center-header">
+    =>
+  </div>
+
+  <div class="right-header">
+    <span id="output-lang">Chinese</span>
+  </div>
+</div>
+
+<div class="bg">
+  <div class="left-box">
+    <form th:action="@{/translate}"
+          th:object="${translateInput}"
+          method="post"
+          class="left-form">
+
+      <input id="input-lang" type="hidden" th:field="*{inputLang}">
+      
+      <label>
+      <textarea id="input"
+                th:field="*{inputText}"
+                placeholder="Type to translate..."></textarea>
+      </label>
+      <div class="submit-btn">
+        <input type="submit" value="Translate">
+      </div>
+    </form>
+  </div>
+
+  <div class="right-box">
+    <span id="output"
+          class="right-content"
+          th:text="${output==null}?'Output here...':${output}"></span>
+  </div>
+
+</div>
+
+<div>
+
+</div>
+
+
+
+
+<div class="footer">
+  <p>BETA v-0.1</p>
+</div>
+
+<script>
+  function setEn() {
+      document.getElementById("input-lang").value = "en-US";
+      document.getElementById("output-lang").textContent = "Chinese";
+  }
+
+  function setZh() {
+      document.getElementById("input-lang").value = "ZH";
+      document.getElementById("output-lang").textContent = "English";
+  }
+</script>
+</body>
+</html>
